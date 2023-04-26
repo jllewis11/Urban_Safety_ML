@@ -1,4 +1,11 @@
 *.pyc
 .env
 *.csv
-
+*.zip
+*.html
+*.pt
+<<<<<<< HEAD
+*.DS_Store
+=======
+.DS_Store
+>>>>>>> a650a4d (resolved merge conflict)
