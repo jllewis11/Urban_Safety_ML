@@ -10,25 +10,13 @@ stub = modal.Stub(
         "scikit-learn",
         "numpy",
         "folium",
-<<<<<<< HEAD
         "torch", find_links="https://download.pytorch.org/whl/cu116",
-=======
-        "torch",
-        find_links="https://download.pytorch.org/whl/cu116",
->>>>>>> 3ec5449 (Added lSTM)
     ),
 )
 
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-@stub.function(gpu=modal.gpu.A10G(count=4), timeout=60*60*6)
-=======
-@stub.function(gpu=modal.gpu.T4(count=4), timeout=60 * 60 * 6)
->>>>>>> 3ec5449 (Added lSTM)
-=======
+
 @stub.function(gpu=modal.gpu.A10G(count=4), timeout=60 * 60 * 6)
->>>>>>> a9f5826 (Updated LSTM Accuracy still low)
 def gpu_function(data):
     import subprocess
 
@@ -48,27 +36,12 @@ def gpu_function(data):
     print("CUDA device count:", torch.cuda.device_count())
 
     # Load and preprocess data
-<<<<<<< HEAD
     
     data['Datetime'] = pd.to_datetime(data['Datetime']).astype(int) / 10**9
     scaler = MinMaxScaler()
     data[['Datetime', 'Latitude', 'Longitude']] = scaler.fit_transform(data[['Datetime', 'Latitude', 'Longitude']])
     encoder = LabelEncoder()
     data['Category'] = encoder.fit_transform(data['Category'])
-=======
-
-    # Column Date to Datetime
-    data["Date"] = pd.to_datetime(data["Date"]).astype(int) / 10**9
-    data["Time"] = pd.to_datetime(data["Time"], format="%H:%M").astype(int) / 10**9
-
-
-    scaler = MinMaxScaler()
-    data[["Date", "Time", "Latitude", "Longitude"]] = scaler.fit_transform(
-        data[["Date", "Time", "Latitude", "Longitude"]]
-    )
-    encoder = LabelEncoder()
-    data["Category"] = encoder.fit_transform(data["Category"])
->>>>>>> 3ec5449 (Added lSTM)
 
     # Prepare dataset and dataloader
     class CrimeDataset(Dataset):
@@ -79,15 +52,8 @@ def gpu_function(data):
             return len(self.data)
 
         def __getitem__(self, idx):
-<<<<<<< HEAD
             features = torch.tensor(self.data.iloc[idx, [0, 2, 3]].values, dtype=torch.float)
             label = torch.tensor(self.data.iloc[idx, 1], dtype=torch.long)
-=======
-            features = torch.tensor(
-                self.data.iloc[idx, [0, 1, 3, 4]].values, dtype=torch.float
-            )
-            label = torch.tensor(self.data.iloc[idx, 2], dtype=torch.long)
->>>>>>> 3ec5449 (Added lSTM)
             return features, label
 
     dataset = CrimeDataset(data)
@@ -119,11 +85,7 @@ def gpu_function(data):
             out, _ = self.lstm(x, (h0, c0))
             out = self.fc(out[:, -1, :])
             return out
-<<<<<<< HEAD
     
-=======
-
->>>>>>> 3ec5449 (Added lSTM)
     # Model parameters
 <<<<<<< HEAD
     input_size = 3
