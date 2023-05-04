@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-import torch
+from tqdm import tqdm
 import torch.nn as nn
 import torch.optim as optim
 from sklearn.model_selection import train_test_split
@@ -20,8 +20,10 @@ df['Day'] = df['Date_Time'].dt.day
 df['Time_minutes'] = df['Date_Time'].dt.hour * 60 + df['Date_Time'].dt.minute
 
 calendar = USFederalHolidayCalendar()
-holidays = calendar.holidays(start=df['Date'].min(), end=df['Date'].max())
-df['IsHoliday'] = df['Date'].isin(holidays)
+df['Date'] = pd.to_datetime(df['Date'])
+tqdm.pandas(desc="Checking holidays...")
+df['IsHoliday'] = df['Date'].progress_apply(lambda x: x in calendar.holidays())
+
 
 one_hot_encoder = OneHotEncoder(sparse=False)
 one_hot_encoded = one_hot_encoder.fit_transform(df[['Day_of_Week', 'Part_of_Day']])
@@ -43,16 +45,12 @@ smote = SMOTE(random_state=42)
 X_train_resampled, y_train_resampled = smote.fit_resample(X_train, y_train)
 
 # Convert to tensors
-# X_train_resampled = torch.tensor(X_train_resampled, dtype=torch.float32)
-# X_test = torch.tensor(X_test, dtype=torch.float32)
-# y_train_resampled = torch.tensor(y_train_resampled, dtype=torch.long)
-# y_test = torch.tensor(y_test, dtype=torch.long)
-
-# Convert to tensors
-X_train_resampled = torch.tensor(X_train, dtype=torch.float32)
+X_train_resampled = torch.tensor(X_train_resampled, dtype=torch.float32)
 X_test = torch.tensor(X_test, dtype=torch.float32)
-y_train_resampled = torch.tensor(y_train, dtype=torch.long)
+y_train_resampled = torch.tensor(y_train_resampled, dtype=torch.long)
 y_test = torch.tensor(y_test, dtype=torch.long)
+
+
 
 class CrimeCategoryGRU(nn.Module):
     def __init__(self, input_dim, hidden_dim, output_dim, num_layers=1):

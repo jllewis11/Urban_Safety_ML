@@ -8,7 +8,8 @@ pmdarima
 torch 
 torchvision 
 torchaudio
-
+tdqm
+seaborn
 #Geospatial libraries
 folium
 
