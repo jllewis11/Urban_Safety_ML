@@ -1,0 +1,18 @@
+pandas
+numpy
+scikit-learn
+googlemaps
+google-cloud-storage
+python-dotenv
+pmdarima
+torch 
+torchvision 
+torchaudio
+tdqm
+seaborn
+#Geospatial libraries
+folium
+
+
+#If you are using modal, uncomment the following line
+#modal-client

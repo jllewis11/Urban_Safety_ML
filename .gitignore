@@ -1,4 +1,9 @@
 *.pyc
 .env
 *.csv
-
+*.zip
+*.html
+*.pt
+.DS_Store
+*.pth
+*.ckpt
