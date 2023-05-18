@@ -1,0 +1,14 @@
+.env
+finalized_model.sav
+map.html
+marked_map.html
+marker_map.html
+Police_Department_Incident_Reports__2018_to_Present.csv
+Police_Department_Incident_Reports__Historical_2003_to_May_2018.csv
+San_Francisco.csv
+__pycache__/modal_api.cpython-311.pyc
+__pycache__/modal_LSTM.cpython-311.pyc
+__pycache__/modal_preprocess.cpython-311.pyc
+__pycache__/modal_processing.cpython-311.pyc
+__pycache__/modal_upload.cpython-311.pyc
+__pycache__/modaltest.cpython-311.pyc
