@@ -126,10 +126,5 @@ print(pd_new.shape)
 
 print(pd_new['Category'].unique())
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 3ec5449 (Added lSTM)
 #Save to csv
 pd_new.to_csv("San_Francisco.csv", index=False)
